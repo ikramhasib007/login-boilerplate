@@ -1,0 +1,18 @@
+{
+  "extends": "stylelint-config-recommended",
+  "rules": {
+    "at-rule-no-unknown": [ true, {
+      "ignoreAtRules": [
+        "extends",
+        "tailwind",
+        "responsive",
+        "variants",
+        "screen",
+        "layer"
+      ]
+    }],
+    "block-no-empty": null,
+    "unit-whitelist": ["em", "rem", "s", "px", "deg", "vh", "vw", "%", "ms"],
+    "no-descending-specificity": null
+  }
+}

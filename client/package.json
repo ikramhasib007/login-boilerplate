@@ -1,0 +1,76 @@
+{
+  "name": "costagarment",
+  "version": "1.0.0",
+  "description": "CAG Inc.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikramhasib007/costagarment.git"
+  },
+  "keywords": [
+    "CAG"
+  ],
+  "author": "CAG Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ikramhasib007/costagarment/issues"
+  },
+  "homepage": "https://github.com/ikramhasib007/costagarment#readme",
+  "dependencies": {
+    "@apollo/client": "^3.4.8",
+    "@badrap/bar-of-progress": "^0.1.2",
+    "@hapi/iron": "^6.0.0",
+    "@headlessui/react": "^1.4.0",
+    "@heroicons/react": "^1.0.4",
+    "@sendgrid/mail": "^7.4.6",
+    "apollo-upload-client": "^16.0.0",
+    "apollo3-cache-persist": "^0.12.1",
+    "cookie": "^0.4.1",
+    "cross-fetch": "^3.1.4",
+    "graphql": "^15.5.1",
+    "localforage": "^1.10.0",
+    "next": "^11.1.0",
+    "next-connect": "^0.10.2",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "pluralize": "^8.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.12.2",
+    "react-timeago": "^6.2.1",
+    "react-waypoint": "^10.1.0",
+    "subscriptions-transport-ws": "^0.9.19"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.1",
+    "@tailwindcss/forms": "^0.3.3",
+    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.3.1",
+    "cssnano": "^5.0.8",
+    "eslint": "^7.32.0",
+    "eslint-config-next": "^11.1.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "mdast-util-from-markdown": "^1.0.0",
+    "postcss": "^8.2.15",
+    "postcss-custom-properties": "^11.0.0",
+    "postcss-fail-on-warn": "^0.2.1",
+    "postcss-import": "^14.0.2",
+    "postcss-nested": "^5.0.6",
+    "postcss-preset-env": "^6.7.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
+    "tailwindcss": "^2.2.7"
+  }
+}

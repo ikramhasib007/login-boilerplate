@@ -1,0 +1,269 @@
+scalar Upload
+
+type Query {
+  users(query: String, skip: Int, take: Int, cursor: String): [User!]!
+  user(email: String!): User!
+  me: User!
+  notifications(skip: Int, take: Int, cursor: String): [Notification!]!
+  
+  opsToken(id: ID!, type: String!): Token!
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): AuthPayload!
+  login(data: LoginUserInput!): AuthPayload!
+  socialLogin(data: LoginUserInput!): AuthPayload!
+  updateUser(data: UpdateUserInput!): User!
+  deleteUser: User!
+  resetPassword(id: ID!, token: String!, data: UpdateUserInput!): User!
+  emailVerify: User!
+
+  createCategory(data: CategoryInput!): Category!
+  updateCategory(id: ID!, data: CategoryInput!): Category!
+  deleteCategory(id: ID!): Category!
+  
+  createToken(data: CreateRequestTokenInput!): Token!
+  deleteToken(id: ID!): Token!
+
+  uploadFile (file: Upload!): File!
+  uploadFiles (files: [Upload!]!): [File!]!
+  deleteFile (file: DeleteFileInput!): File!
+  deleteFiles (files: [DeleteFileInput!]!): Int!
+
+  notificationRead(ids: [Int]): Int!
+
+}
+
+type Subscription {
+  user: UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  name: String!
+  email(hasReturn: Boolean): String
+  password: String
+  type: UserType!
+  imageUrl: String
+  image: [File!]!
+  profile: Profile
+  authProvider: [AuthProvider!]!
+  activities: [String!]!
+  verified: Boolean!
+  lastLogin: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Profile {
+  id: ID!
+  user: User!
+  phone: String
+  company: String
+  designation: String
+  gender: String
+  address: String
+  city: String
+  country: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  types: [Type!]!
+  allowance: Float
+  wastage: Float
+  costs: [Cost!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Type {
+  id: ID!
+  name: String!
+  category: Category!
+  products: [Product!]!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  type: Type!
+  costs: [Cost!]!
+  sizeChart: SizeChart
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Sourcing {
+  id: ID!
+  country: String!
+  cost: Cost
+  createdAt: String!
+  updatedAt: String!
+}
+
+
+type Cost {
+  id: ID!
+  dying: Float
+  printing: Float
+  accessories: Float
+  cm: Float
+  product: Product
+  knitting: Float
+  washing: Float
+  others: Float
+  category: Category
+  commercial: Float
+  sourcing: Sourcing
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Measurement {
+  id: ID!
+  region: String!
+  sizeChart: SizeChart
+  createdAt: String!
+  updatedAt: String!
+}
+
+type SizeChart {
+  id: ID!
+  image: File
+  measurement: Measurement
+  variants: [PointOfMeasure!]!
+  products: Product
+  createdAt: String!
+  updatedAt: String!
+}
+
+type PointOfMeasure {
+  id: ID!
+  size: String
+  point: String
+  value: Float!
+  sizeChart: SizeChart!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type File {
+  id: ID!
+  path: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
+  user: User
+}
+
+type AuthProvider {
+  provider: ID!
+  providerId: String
+  user: User!
+}
+
+type Token {
+  id: ID!
+  creatorId: String!
+  type: String!
+  createdAt: String!
+  expireAt: String!
+}
+
+type Notification {
+  id: ID!
+  content: String!
+  sourceId: String
+  notifyType: NotifyType!
+  user: User!
+  read: Boolean!
+  createdAt: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  data: User!
+  notifications: [Notification]!
+}
+
+input LoginUserInput {
+  name: String
+  email: String!
+  password: String
+  authProvider: String
+  authProviderId: String
+  imageUrl: String
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String
+  authProvider: String!
+  authProviderId: String
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+}
+
+input CreateRequestTokenInput {
+  creatorId: String
+  type: String!
+  expireAt: String!
+}
+
+input CategoryInput {
+  name: String!
+  allowance: Float
+  wastage: Float
+}
+
+input NameInput {
+  name: String!
+}
+
+input DeleteFileInput {
+  id: String!
+  filename: String!
+}
+
+enum UserType {
+  ADMIN
+  MODARATOR
+  EDITOR
+  VIEWER
+  USER
+}
+
+enum AuthenticationProvider {
+  EMAIL
+  FACEBOOK
+  TWITTER
+  GOOGLE
+  LINKEDIN
+}
+
+enum NotifyType {
+  SUBSCRIBE
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+  REQUESTED
+}

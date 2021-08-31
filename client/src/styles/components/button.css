@@ -1,0 +1,36 @@
+@layer components {
+  .btn {
+    @apply font-medium;
+    @apply text-sm;
+    @apply py-2;
+    @apply px-4;
+    @apply rounded-md;
+  }
+
+  .btn-primary {
+    @apply shadow-sm;
+    @apply w-full flex justify-center items-center border border-transparent  text-white bg-neutral-600;
+    @apply hover:bg-neutral-700;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500;
+  }
+
+  .btn-sm {
+    @apply font-normal;
+    @apply py-1;
+    @apply px-3;
+  }
+  
+  .btn-outline-sm {
+    @apply font-normal;
+    padding: 3px 11px !important;
+  }
+  
+  .btn-primary-outline {
+    @apply bg-transparent;
+    @apply text-neutral-700;
+    @apply border;
+    @apply border-neutral-500;
+    @apply hover:bg-neutral-500 hover:border-transparent hover:text-white;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500;
+  }
+}

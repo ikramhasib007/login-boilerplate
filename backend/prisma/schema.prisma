@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  password      String?
+  type          UserType       @default(USER)
+  imageUrl      String?
+  image         File[]
+  profile       Profile?
+  authProvider  AuthProvider[]
+  notifications Notification[]
+  activities    String[]
+  verified      Boolean        @default(false)
+  lastLogin     DateTime       @default(now())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Profile {
+  id          String    @id @default(cuid())
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
+  phone       String?
+  company     String?
+  designation String?
+  gender      String?
+  address     String?
+  city        String?
+  country     String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  types     Type[]
+  allowance Float?
+  wastage   Float?
+  costs     Cost[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Type {
+  id         Int       @id @default(autoincrement())
+  name       String
+  categoryId Int
+  category   Category  @relation(fields: [categoryId], references: [id])
+  products   Product[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Product {
+  id        Int        @id @default(autoincrement())
+  name      String
+  typeId    Int
+  type      Type       @relation(fields: [typeId], references: [id])
+  costs     Cost[]
+  sizeChart SizeChart?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Sourcing {
+  id        Int      @id @default(autoincrement())
+  country   String
+  cost      Cost?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cost {
+  id          Int       @id @default(autoincrement())
+  dying       Float?
+  printing    Float?
+  accessories Float?
+  cm          Float?
+  productId   Int?
+  product     Product?  @relation(fields: [productId], references: [id])
+  knitting    Float?
+  washing     Float?
+  others      Float?
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  commercial  Float?
+  sourcingId  Int?
+  sourcing    Sourcing? @relation(fields: [sourcingId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Measurement {
+  id        Int        @id @default(autoincrement())
+  region    String
+  sizeChart SizeChart?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model SizeChart {
+  id            Int              @id @default(autoincrement())
+  measurementId Int?
+  measurement   Measurement?     @relation(fields: [measurementId], references: [id])
+  image         File?
+  variants      PointOfMeasure[]
+  productId     Int?
+  products      Product?         @relation(fields: [productId], references: [id])
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+}
+
+model PointOfMeasure {
+  id          Int       @id @default(autoincrement())
+  size        String? // S [for query call it with group]
+  point       String? // 1/2 Chest (in inches)
+  value       Float // 22.50"
+  sizeChartId Int
+  sizeChart   SizeChart @relation(fields: [sizeChartId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model AuthProvider {
+  id         Int                    @id @default(autoincrement())
+  provider   AuthenticationProvider
+  providerId String?
+  user       User                   @relation(fields: [userId], references: [id])
+  userId     String
+}
+
+model File {
+  id          String     @id
+  path        String
+  filename    String
+  mimetype    String
+  encoding    String
+  user        User?      @relation(fields: [userId], references: [id])
+  userId      String?
+  sizeChart   SizeChart? @relation(fields: [sizeChartId], references: [id])
+  sizeChartId Int?
+}
+
+model Token {
+  id        String   @id @default(dbgenerated("gen_random_uuid()"))
+  creatorId String
+  type      String
+  createdAt DateTime @default(now())
+  expireAt  DateTime
+
+  @@unique([id, creatorId])
+}
+
+model Notification {
+  id         Int        @id @default(autoincrement())
+  content    String
+  read       Boolean    @default(false)
+  sourceId   String?
+  notifyType NotifyType @default(SUBSCRIBE)
+  userId     String
+  user       User       @relation(fields: [userId], references: [id])
+  createdAt  DateTime   @default(now())
+
+  @@unique([id])
+}
+
+enum UserType {
+  ADMIN
+  MODARATOR
+  EDITOR
+  VIEWER
+  USER
+}
+
+enum AuthenticationProvider {
+  EMAIL
+  FACEBOOK
+  TWITTER
+  GOOGLE
+  LINKEDIN
+}
+
+enum NotifyType {
+  SUBSCRIBE
+}

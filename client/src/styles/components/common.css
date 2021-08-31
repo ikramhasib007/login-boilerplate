@@ -1,0 +1,50 @@
+@layer components {
+  .bar-of-progress {
+    z-index: 50;
+  }
+  .smooth-scroll {
+    scroll-behavior: smooth;
+  }
+  .w-calc-6 {
+    width: calc(100% - theme("spacing.6"));
+  }
+  .max-w-calc-6 {
+    max-width: calc(100% - theme("spacing.6"));
+  }
+  .max-w-calc-10 {
+    max-width: calc(100% - theme("spacing.10"));
+  }
+  .max-w-calc-11 {
+    max-width: calc(100% - theme("spacing.11"));
+  }
+  .h-main {
+    height: calc(100vh - theme("spacing[17.5]"));
+  }
+  .max-h-main {
+    max-height: calc(100vh - theme("spacing[17.5]"));
+  }
+  .max-h-notification {
+    max-height: calc(100vh - theme("spacing[17.5]") - theme('spacing.10'));
+  }
+  .max-h-notification-mobile {
+    max-height: calc(100vh - theme("spacing[17.5]") - theme("spacing.48") - theme("spacing.19") - theme('spacing.10'));
+  }
+  .max-h-left-sidebar {
+    max-height: calc(100vh - theme("spacing[21.5]") - theme('spacing.3'));
+  }
+  .max-h-sidebar {
+    max-height: calc(100vh - theme("spacing[21.5]"));
+  }
+}
+
+@variants responsive {
+  .max-h-main {
+    max-height: calc(100vh - theme("spacing[17.5]"));
+  }
+  .max-h-notification {
+    max-height: calc(100vh - theme("spacing[17.5]") - theme('spacing.10'));
+  }
+  .max-h-notification-mobile {
+    max-height: calc(100vh - theme("spacing[17.5]") - theme("spacing.48") - theme("spacing.19") - theme('spacing.10'));
+  }
+}

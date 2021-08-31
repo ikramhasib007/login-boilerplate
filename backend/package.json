@@ -1,0 +1,72 @@
+{
+  "name": "costagarment-engine",
+  "version": "1.0.0",
+  "description": "CAG Inc.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js --ext js,graphql --exec babel-node",
+    "migrate-dev": "env-cmd -f ./config/dev.env npx prisma migrate dev",
+    "migrate-reset": "env-cmd -f ./config/dev.env npx prisma migrate reset",
+    "migrate-resolve": "env-cmd -f ./config/dev.env npx prisma migrate resolve",
+    "studio-dev": "env-cmd -f ./config/dev.env npx prisma studio",
+    "test": "env-cmd -f ./config/test.env jest --watchAll --detectOpenHandles --runInBand --testTimeout=12000",
+    "migrate-test": "env-cmd -f ./config/test.env npx prisma migrate dev",
+    "migrate-reset-test": "env-cmd -f ./config/test.env npx prisma migrate reset",
+    "studio-test": "env-cmd -f ./config/test.env npx prisma studio",
+    "seed": "env-cmd -f ./config/dev.env prisma db seed --preview-feature"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikramhasib007/costagarment-engine.git"
+  },
+  "author": "CAG Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ikramhasib007/costagarment-engine/issues"
+  },
+  "homepage": "https://github.com/ikramhasib007/costagarment-engine#readme",
+  "jest": {
+    "globalSetup": "./tests/jest/globalSetup.js",
+    "globalTeardown": "./tests/jest/globalTeardown.js"
+  },
+  "resolutions": {
+    "graphql": "^15.5.1",
+    "graphql-upload": "^12.0.0"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.4.8",
+    "@babel/polyfill": "^7.12.1",
+    "@graphql-tools/graphql-file-loader": "^7.0.5",
+    "@graphql-tools/load": "^7.1.8",
+    "@graphql-tools/schema": "^8.1.2",
+    "@paljs/plugins": "^3.8.2",
+    "@prisma/client": "^2.30.2",
+    "bcryptjs": "^2.4.3",
+    "cross-fetch": "^3.1.4",
+    "cuid": "^2.1.8",
+    "env-cmd": "^10.1.0",
+    "express": "^4.17.1",
+    "faker": "^5.5.3",
+    "graphql": "^15.5.1",
+    "graphql-postgres-subscriptions": "^1.0.5",
+    "graphql-subscriptions": "^1.2.1",
+    "graphql-yoga": "^1.18.3",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mkdirp": "^1.0.4",
+    "nanoid": "^3.1.25",
+    "pg": "^8.7.1",
+    "subscriptions-transport-ws": "^0.9.19"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/register": "^7.15.3",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.12",
+    "prisma": "^2.30.2"
+  }
+}
